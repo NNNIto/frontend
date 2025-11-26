@@ -1,154 +1,97 @@
 // src/api/types.ts
+// DTO definitions aligned with backend API
 
 export type SimpleUserDto = {
-    id: string
-    userName: string
-    displayName: string
-    avatarUrl: string
-    bio?: string | null
-}
+  id: string;
+  userName: string;
+  displayName: string;
+  avatarUrl: string;
+  bio?: string | null;
+};
 
-export type UserDto = {
-    id: string
-    userName: string
-    displayName: string
-    avatarUrl: string
-    bio?: string | null
-    posts: PostDto[]
-}
+export type FollowUserDto = SimpleUserDto;
+export type ShareUserDto = SimpleUserDto;
 
-// ActivityItem はシンプルにそのまま受け取る想定
-export type ActivityType = 'Like' | 'Follow' | 'Comment' | number
+export type PostDto = {
+  id: string;
+  userName: string;
+  avatarUrl: string;
+  imageUrl: string;
+  caption: string;
+  likeCount: number;
+  commentCount: number;
+  likedByCurrentUser: boolean;
+  createdAtText?: string;
+  // used only in Post detail expansion (optional)
+  detailSections?: PostDetailSectionDto[];
+};
+
+export type StoryDto = {
+  id: string;
+  userId: string;
+  userName: string;
+  avatarUrl: string;
+  isViewed: boolean;
+};
+
+export type CommentDto = {
+  id: string;
+  userId: string;
+  userName: string;
+  text: string;
+  createdAt: string;
+  likedByCurrentUser?: boolean; // backend does not support yet
+  likeCount?: number;
+};
 
 export type ActivityItemDto = {
-    id: string
-    type: ActivityType
-    fromUser: SimpleUserDto
-    targetPost?: PostDto | null
-    message: string
-    createdAt: string
-}
-
-// コメント DTO
-export type CommentDto = {
-    id: string
-    username: string
-    avatarUrl: string
-    text: string
-    likes: number
-    timeAgo: string
-    likedByCurrentUser: boolean
-}
-
-export type FollowUserDto = {
-    id: string
-    userName: string
-    displayName: string
-    avatarUrl: string
-}
-
-// プロフィール
-export type ProfileDto = {
-    name: string;
-    userName: string;
-    avatarUrl: string;
-    bio: string;
-    tags: string[];
-    postsCount: number;
-    followersCount: number;
-    followingCount: number;
+  id: string;
+  type: "Like" | "Follow" | "Comment" | string;
+  fromUserId: string;
+  fromUserName: string;
+  fromUserAvatarUrl: string;
+  postId?: string | null;
+  createdAt: string;
 };
 
-// プロフィール画面のグリッド用投稿
+export type ProfileHeaderDto = {
+  userId: string;
+  userName: string;
+  displayName: string;
+  bio: string;
+  avatarUrl: string;
+  postCount: number;
+  followerCount: number;
+  followingCount: number;
+};
+
 export type ProfilePostDto = {
-    id: string;
-    imageUrl: string;
-    genre: string;
+  id: string;
+  thumbnailUrl: string;
+  likeCount: number;
+  commentCount: number;
 };
 
-// 1件のレビュー
-export type ReviewDto = {
-    user: string;
-    avatar: string;
-    text: string;
-    rating: number;
+export type UpdateProfileRequestDto = {
+  displayName: string;
+  bio: string;
+  avatarUrl: string;
 };
 
-// Post 詳細セクション
+// For Post.tsx "details"
 export type PostDetailSectionDto =
-    | {
-        type: "photos";
-        title: string;
-        images: string[];
-    }
-    | {
-        type: "rating_with_reviews";
-        title: string;
-        rating: number;
-        reviews: ReviewDto[];
-    }
-    | {
-        type: "menu";
-        title: string;
-        image: string;
-    }
-    | {
-        type: "map";
-        title: string;
-        location: string;
-    };
+  | { type: "rating"; title: string; value: string }
+  | { type: "tags"; title: string; tags: string[] }
+  | { type: "map"; title: string; location: string };
 
-// PostDto（Home / Activity / Search など共通）
-export type PostDto = {
-    id: string;
-    /** ユーザー名（@xxx） */
-    userName: string;              // ← username → userName に統一
-    /** アイコン画像 */
-    avatarUrl: string;
-    /** メイン画像 */
-    imageUrl: string;
-    caption: string;
-    likeCount: number;
-    likedByCurrentUser: boolean;
 
-    // レストラン情報系
-    restaurantName?: string;
-    rating?: number;
-    isBest100?: boolean;
-    location?: string;
-
-    // 一覧・アクティビティ用の追加情報
-    genre?: string;
-    createdAtText?: string;        // "2時間前" などを表示したいとき用
-    commentCount?: number;         // Home で表示しているコメント数
-
-    // 詳細ビュー用
-    detailSections?: PostDetailSectionDto[];
-};
-
-// シェア先候補ユーザー
-export type ShareUserDto = {
-    id: string;
-    userName: string;
-    displayName: string;
-    avatarUrl: string;
-};
-
-// ストーリー一覧用
-export type StoryDto = {
-    id: string;
-    userName: string;
-    avatarUrl: string;
-    imageUrl: string;
-    /** 既読フラグ（UI 用なので任意） */
-    seen?: boolean;
-};
-
-// ストーリー詳細ビュー用
 export type StoryDetailDto = {
-    id: string;
-    userName: string;
-    avatarUrl: string;
-    imageUrl: string;
-    createdAt: string; // "2時間前" の元データ
+  id: string;
+  userId: string;
+  userName: string;
+  avatarUrl: string;
+  imageUrl: string;
+  isViewed: boolean;
+  createdAt: string;
+  expiresAt: string;
 };

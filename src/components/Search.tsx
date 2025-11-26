@@ -4,10 +4,10 @@ import type { PostDto, SimpleUserDto } from '../../api/types'
 import { ImageWithFallback } from '../figma/ImageWithFallback'
 
 type Props = {
-    onOpenPost: (post: PostDto) => void
+    onOpenPost?: (post: PostDto) => void
 }
 
-export function Search({ onOpenPost }: Props) {
+export function Search({ onOpenPost }: Props = {}) {
     const [keyword, setKeyword] = useState('')
     const [users, setUsers] = useState<SimpleUserDto[]>([])
     const [posts, setPosts] = useState<PostDto[]>([])
@@ -69,7 +69,7 @@ export function Search({ onOpenPost }: Props) {
                                 <button
                                     key={p.id}
                                     className="search-post-thumb"
-                                    onClick={() => onOpenPost(p)}
+                                    onClick={() => onOpenPost?.(p)}
                                 >
                                     <ImageWithFallback
                                         src={p.imageUrl}

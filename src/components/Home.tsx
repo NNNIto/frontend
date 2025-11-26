@@ -5,11 +5,11 @@ import type { PostDto, StoryDto } from '../../api/types'
 import { fetchFeed, fetchStories, toggleLike } from '../../api/instagramApi'
 
 type Props = {
-    onOpenStory: (story: StoryDto) => void
-    onOpenPost: (post: PostDto) => void
+    onOpenStory?: (story: StoryDto) => void
+    onOpenPost?: (post: PostDto) => void
 }
 
-export function Home({ onOpenStory, onOpenPost }: Props) {
+export function Home({ onOpenStory, onOpenPost }: Props = {}) {
     const [stories, setStories] = useState<StoryDto[]>([])
     const [posts, setPosts] = useState<PostDto[]>([])
     const [loading, setLoading] = useState(true)
@@ -67,7 +67,7 @@ export function Home({ onOpenStory, onOpenPost }: Props) {
                     <button
                         key={story.id}
                         className={`story-bubble ${story.seen ? 'seen' : ''}`}
-                        onClick={() => onOpenStory(story)}
+                        onClick={() => onOpenStory?.(story)}
                     >
                         <ImageWithFallback
                             src={story.avatarUrl}      // ← userAvatarUrl ではなく avatarUrl
@@ -99,7 +99,7 @@ export function Home({ onOpenStory, onOpenPost }: Props) {
 
                         <div
                             className="post-image-wrapper"
-                            onClick={() => onOpenPost(post)}
+                            onClick={() => onOpenPost?.(post)}
                         >
                             <ImageWithFallback
                                 src={post.imageUrl}

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { FollowSheet } from "./FollowSheet";
 import { EditProfileSheet } from "./EditProfileSheet";
 import { fetchCurrentProfile, fetchMyPosts } from "../api/instagramApi";
-import type { ProfileDto, ProfilePostDto } from "../api/types";
+import type { ProfileHeaderDto, ProfilePostDto } from "../api/types";
 
 export function Profile() {
     const [selectedGenre, setSelectedGenre] = useState("すべて");
@@ -12,7 +12,7 @@ export function Profile() {
         useState<"followers" | "following" | null>(null);
     const [showEditProfile, setShowEditProfile] = useState(false);
 
-    const [profile, setProfile] = useState<ProfileDto | null>(null);
+    const [profile, setProfile] = useState<ProfileHeaderDto | null>(null);
     const [posts, setPosts] = useState<ProfilePostDto[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -78,7 +78,7 @@ export function Profile() {
                             className="text-center"
                         >
                             <div className="font-semibold">
-                                {profile?.postsCount?.toLocaleString() ?? "-"}
+                                {profile?.postCount?.toLocaleString() ?? "-"}
                             </div>
                             <div className="text-sm text-gray-600">投稿</div>
                         </button>
@@ -87,7 +87,7 @@ export function Profile() {
                             className="text-center"
                         >
                             <div className="font-semibold">
-                                {profile?.followersCount?.toLocaleString() ?? "-"}
+                                {profile?.followerCount?.toLocaleString() ?? "-"}
                             </div>
                             <div className="text-sm text-gray-600">フォロワー</div>
                         </button>
