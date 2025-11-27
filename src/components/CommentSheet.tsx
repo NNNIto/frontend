@@ -5,7 +5,7 @@ import type { CommentDto } from "../api/types";
 import { addComment, fetchComments, toggleCommentLike } from "../api/instagramApi";
 
 interface CommentSheetProps {
-    postId: string;      // ★ どの投稿のコメントか
+    postId: string;      
     onClose: () => void;
 }
 
@@ -15,7 +15,7 @@ export function CommentSheet({ postId, onClose }: CommentSheetProps) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    // 初回 & postId 変更時にコメントを取得
+    
     useEffect(() => {
         async function load() {
             try {
@@ -41,12 +41,12 @@ export function CommentSheet({ postId, onClose }: CommentSheetProps) {
         try {
             const created = await addComment(postId, newComment.trim());
 
-            // 末尾に追加 or 最新順なら先頭に追加など好みで
+            
             setComments((prev) => [...prev, created]);
             setNewComment("");
         } catch (e) {
             console.error(e);
-            // TODO: トーストなどでエラー通知
+            
         }
     };
 
@@ -70,7 +70,7 @@ export function CommentSheet({ postId, onClose }: CommentSheetProps) {
                 className="bg-white w-full max-w-md mx-auto rounded-t-3xl max-h-[80vh] flex flex-col"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Header */}
+                {}
                 <div className="flex items-center justify-between p-4 border-b border-gray-200">
                     <h3 className="font-semibold">コメント</h3>
                     <button onClick={onClose} className="p-1">
@@ -78,7 +78,7 @@ export function CommentSheet({ postId, onClose }: CommentSheetProps) {
                     </button>
                 </div>
 
-                {/* Comments List */}
+                {}
                 <div className="flex-1 overflow-y-auto p-4 space-y-4">
                     {loading && (
                         <div className="text-center text-gray-500">読み込み中...</div>
@@ -132,14 +132,14 @@ export function CommentSheet({ postId, onClose }: CommentSheetProps) {
                         ))}
                 </div>
 
-                {/* Comment Input */}
+                {}
                 <form
                     className="p-4 border-t border-gray-200"
                     onSubmit={handleSubmit}
                 >
                     <div className="flex items-center gap-3">
                         <ImageWithFallback
-                            src="https://images.unsplash.com/photo-1602273660127-a0000560a4c1?w=400"
+                            src="https:
                             alt="Your avatar"
                             className="w-8 h-8 rounded-full object-cover"
                         />

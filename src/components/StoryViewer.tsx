@@ -1,4 +1,4 @@
-// src/components/ui/StoryViewer.tsx
+
 import { X, Heart, Send } from "lucide-react";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
 import { useState, useEffect } from "react";
@@ -15,7 +15,7 @@ export function StoryViewer({ storyId, onClose }: StoryViewerProps) {
     const [story, setStory] = useState<StoryDetailDto | null>(null);
     const [loading, setLoading] = useState(true);
 
-    // ① ストーリー詳細を API から取得
+    
     useEffect(() => {
         async function load() {
             try {
@@ -30,7 +30,7 @@ export function StoryViewer({ storyId, onClose }: StoryViewerProps) {
         load();
     }, [storyId]);
 
-    // ローディング中
+    
     if (loading || !story) {
         return (
             <div className="fixed inset-0 bg-black z-50 flex items-center justify-center">
@@ -39,7 +39,7 @@ export function StoryViewer({ storyId, onClose }: StoryViewerProps) {
         );
     }
 
-    // ② プログレスバーによる自動クローズ
+    
     useEffect(() => {
         const timer = setInterval(() => {
             setProgress((prev) => {
@@ -56,7 +56,7 @@ export function StoryViewer({ storyId, onClose }: StoryViewerProps) {
 
     return (
         <div className="fixed inset-0 bg-black z-50 flex items-center justify-center">
-            {/* Progress Bar */}
+            {}
             <div className="absolute top-2 left-0 right-0 px-2">
                 <div className="h-0.5 bg-white/30 rounded-full overflow-hidden">
                     <div
@@ -66,7 +66,7 @@ export function StoryViewer({ storyId, onClose }: StoryViewerProps) {
                 </div>
             </div>
 
-            {/* Header */}
+            {}
             <div className="absolute top-6 left-0 right-0 px-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                     <ImageWithFallback
@@ -82,14 +82,14 @@ export function StoryViewer({ storyId, onClose }: StoryViewerProps) {
                 </button>
             </div>
 
-            {/* Story Image */}
+            {}
             <ImageWithFallback
                 src={story.imageUrl}
                 alt="Story"
                 className="w-full h-full object-contain"
             />
 
-            {/* Bottom Actions */}
+            {}
             <div className="absolute bottom-6 left-0 right-0 px-4">
                 <div className="flex items-center gap-3">
                     <input

@@ -1,4 +1,4 @@
-// src/api/instagramApi.ts
+
 import { apiClient } from "./axiosClient";
 import type {
   ActivityItemDto,
@@ -13,7 +13,7 @@ import type {
   UpdateProfileRequestDto,
 } from "./types";
 
-// ---- server-side DTO types (wire format) ----
+
 type ServerFeedResponse = {
   items: Array<{
     id: number;
@@ -95,7 +95,7 @@ type ServerProfilePost = {
   commentCount: number;
 };
 
-// ---- mappers ----
+
 function mapFeedItemToPostDto(p: ServerFeedResponse["items"][number]): PostDto {
   return {
     id: String(p.id),
@@ -119,9 +119,9 @@ function mapUser(u: ServerUserSummary): SimpleUserDto {
   };
 }
 
-// ---- API calls ----
 
-/** Feed (Home) */
+
+
 export async function fetchFeed(page = 1, pageSize = 20): Promise<PostDto[]> {
   const res = await apiClient.get<ServerFeedResponse>("/api/feed", {
     params: { page, pageSize },
@@ -129,7 +129,7 @@ export async function fetchFeed(page = 1, pageSize = 20): Promise<PostDto[]> {
   return res.data.items.map(mapFeedItemToPostDto);
 }
 
-/** Stories */
+
 export async function fetchStories(): Promise<StoryDto[]> {
   const res = await apiClient.get<ServerStory[]>("/api/story");
   return res.data.map((s) => ({
@@ -141,7 +141,7 @@ export async function fetchStories(): Promise<StoryDto[]> {
   }));
 }
 
-/** Story detail by id */
+
 export async function fetchStoryById(storyId: string) {
   const res = await apiClient.get<{
     id: number;
@@ -166,12 +166,12 @@ export async function fetchStoryById(storyId: string) {
   };
 }
 
-/** Toggle like */
+
 export async function toggleLike(postId: string): Promise<void> {
   await apiClient.post(`/api/post/${postId}/like`);
 }
 
-/** Post detail (for Post.tsx expansion & CommentSheet) */
+
 export async function fetchPost(postId: string): Promise<PostDto> {
   const res = await apiClient.get<ServerPostDetail>(`/api/post/${postId}`);
   const p = res.data;
@@ -185,14 +185,14 @@ export async function fetchPost(postId: string): Promise<PostDto> {
     commentCount: p.commentCount,
     likedByCurrentUser: p.isLiked,
     createdAtText: new Date(p.createdAt).toLocaleString(),
-    detailSections: [], // backend does not provide restaurant sections yet
+    detailSections: [], 
   };
 }
 
-/** Comments (backend returns inside post detail) */
+
 export async function fetchComments(postId: string): Promise<CommentDto[]> {
   const detail = await fetchPost(postId);
-  // fetchPost doesn't include comments in PostDto; call server directly:
+  
   const res = await apiClient.get<ServerPostDetail>(`/api/post/${postId}`);
   return res.data.comments.map((c) => ({
     id: String(c.id),
@@ -203,18 +203,18 @@ export async function fetchComments(postId: string): Promise<CommentDto[]> {
   }));
 }
 
-/** Add comment (backend not implemented yet) */
+
 export async function addComment(_postId: string, _text: string): Promise<void> {
-  // TODO: implement backend endpoint. For now, no-op to avoid UI crash.
+  
   return;
 }
 
-/** Toggle comment like (backend not implemented yet) */
+
 export async function toggleCommentLike(_postId: string, _commentId: string): Promise<void> {
   return;
 }
 
-/** Activity (notifications) */
+
 export async function fetchActivity(page = 1, pageSize = 30): Promise<ActivityItemDto[]> {
   const res = await apiClient.get<ServerActivity[]>("/api/activity", {
     params: { page, pageSize },
@@ -230,7 +230,7 @@ export async function fetchActivity(page = 1, pageSize = 30): Promise<ActivityIt
   }));
 }
 
-/** Follow lists */
+
 export async function fetchFollowers(): Promise<FollowUserDto[]> {
   const res = await apiClient.get<ServerUserSummary[]>("/api/follow/followers");
   return res.data.map(mapUser);
@@ -241,13 +241,13 @@ export async function fetchFollowing(): Promise<FollowUserDto[]> {
   return res.data.map(mapUser);
 }
 
-/** Share suggestions */
+
 export async function fetchShareSuggestions(): Promise<ShareUserDto[]> {
   const res = await apiClient.get<ServerUserSummary[]>("/api/share/suggestions");
   return res.data.map(mapUser);
 }
 
-/** Profile */
+
 export async function fetchCurrentProfile(): Promise<ProfileHeaderDto> {
   const res = await apiClient.get<ServerProfileHeader>("/api/profile/me");
   const p = res.data;
@@ -277,7 +277,7 @@ export async function updateMyProfile(req: UpdateProfileRequestDto): Promise<voi
   await apiClient.put("/api/profile/me", req);
 }
 
-/** Search (backend has no dedicated search endpoint; do local search over feed + suggestions) */
+
 export async function searchAll(keyword: string): Promise<{ users: SimpleUserDto[]; posts: PostDto[] }> {
   const q = keyword.trim();
   if (!q) return { users: [], posts: [] };

@@ -16,7 +16,7 @@ export function Profile() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    // プロフィール & 自分の投稿を読み込み
+    
     useEffect(() => {
         async function load() {
             try {
@@ -41,14 +41,14 @@ export function Profile() {
         load();
     }, []);
 
-    // ジャンル一覧（API の結果から動的生成）
+    
     const genres = useMemo(() => {
         const set = new Set<string>();
         posts.forEach((p) => set.add(p.genre));
         return ["すべて", ...Array.from(set)];
     }, [posts]);
 
-    // ジャンルでフィルタ
+    
     const filteredPosts = useMemo(() => {
         if (selectedGenre === "すべて") return posts;
         return posts.filter((post) => post.genre === selectedGenre);
@@ -56,7 +56,7 @@ export function Profile() {
 
     return (
         <div className="pb-16">
-            {/* Profile Header */}
+            {}
             <div className="px-4 py-3">
                 {error && (
                     <div className="mb-2 text-sm text-red-500">{error}</div>
@@ -64,7 +64,7 @@ export function Profile() {
 
                 <div className="flex items-center justify-between mb-4">
                     <ImageWithFallback
-                        src={profile?.avatarUrl ?? "https://images.unsplash.com/photo-1602273660127-a0000560a4c1?w=400"}
+                        src={profile?.avatarUrl ?? "https:
                         alt={profile?.name ?? "Profile"}
                         className="w-20 h-20 rounded-full object-cover"
                     />
@@ -107,7 +107,7 @@ export function Profile() {
                     </div>
                 </div>
 
-                {/* Tags */}
+                {}
                 <div className="flex flex-wrap gap-2 mb-3">
                     {profile?.tags?.length
                         ? profile.tags.map((tag) => (
@@ -146,7 +146,7 @@ export function Profile() {
                 </div>
             </div>
 
-            {/* Genre Filter */}
+            {}
             <div className="px-4 py-3 border-t border-b border-gray-200">
                 <div className="flex items-center gap-2 mb-2">
                     <Filter className="w-4 h-4 text-gray-600" />
@@ -168,7 +168,7 @@ export function Profile() {
                 </div>
             </div>
 
-            {/* Posts Grid */}
+            {}
             {loading ? (
                 <div className="px-4 py-12 text-center text-gray-500">
                     読み込み中...
@@ -187,7 +187,7 @@ export function Profile() {
                         ))}
                     </div>
 
-                    {/* No Results */}
+                    {}
                     {filteredPosts.length === 0 && (
                         <div className="px-4 py-12 text-center text-gray-500">
                             条件に一致する投稿がありません
@@ -196,7 +196,7 @@ export function Profile() {
                 </>
             )}
 
-            {/* Follow Sheet */}
+            {}
             {showFollowSheet && (
                 <FollowSheet
                     type={showFollowSheet}
@@ -204,7 +204,7 @@ export function Profile() {
                 />
             )}
 
-            {/* Edit Profile Sheet */}
+            {}
             {showEditProfile && (
                 <EditProfileSheet onClose={() => setShowEditProfile(false)} />
             )}

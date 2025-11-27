@@ -1,4 +1,4 @@
-// src/components/ui/Home.tsx
+
 import React, { useEffect, useState } from 'react'
 import { ImageWithFallback } from '../figma/ImageWithFallback'
 import type { PostDto, StoryDto } from '../../api/types'
@@ -47,7 +47,7 @@ export function Home({ onOpenStory, onOpenPost }: Props = {}) {
             )
         } catch (e) {
             console.error(e)
-            // TODO: エラー時のトースト表示など
+            
         }
     }
 
@@ -61,7 +61,7 @@ export function Home({ onOpenStory, onOpenPost }: Props = {}) {
 
     return (
         <div className="screen screen-home">
-            {/* ストーリー */}
+            {}
             <div className="stories-row">
                 {stories.map((story) => (
                     <button
@@ -70,7 +70,7 @@ export function Home({ onOpenStory, onOpenPost }: Props = {}) {
                         onClick={() => onOpenStory?.(story)}
                     >
                         <ImageWithFallback
-                            src={story.avatarUrl}      // ← userAvatarUrl ではなく avatarUrl
+                            src={story.avatarUrl}      
                             alt={story.userName}
                             className="story-avatar"
                         />
@@ -79,20 +79,20 @@ export function Home({ onOpenStory, onOpenPost }: Props = {}) {
                 ))}
             </div>
 
-            {/* フィード */}
+            {}
             <div className="feed">
                 {posts.map((post) => (
                     <article key={post.id} className="post-card">
                         <header className="post-header">
                             <ImageWithFallback
-                                src={post.avatarUrl}   // ← userAvatarUrl → avatarUrl
+                                src={post.avatarUrl}   
                                 alt={post.userName}
                                 className="avatar"
                             />
                             <div className="post-user">
                                 <div className="post-username">{post.userName}</div>
                                 <div className="post-time">
-                                    {post.createdAtText ?? ''} {/* なくてもエラーにならないように */}
+                                    {post.createdAtText ?? ''} {}
                                 </div>
                             </div>
                         </header>

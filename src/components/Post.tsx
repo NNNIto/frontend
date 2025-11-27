@@ -64,7 +64,7 @@ export function Post({
     };
 
     const handleToggleDetails = async () => {
-        // 開くときにだけ API 呼び出し（閉じる → 開く → 2回目はキャッシュ利用）
+        
         const willOpen = !showDetails;
         setShowDetails(willOpen);
 
@@ -86,7 +86,7 @@ export function Post({
 
     return (
         <div className="mb-4">
-            {/* Header */}
+            {}
             <div className="flex items-center justify-between px-3 py-2">
                 <div className="flex items-center gap-3">
                     <ImageWithFallback
@@ -101,14 +101,14 @@ export function Post({
                 </div>
             </div>
 
-            {/* Image */}
+            {}
             <ImageWithFallback
                 src={image}
                 alt="Post"
                 className="w-full aspect-square object-cover"
             />
 
-            {/* Best 100 Badge */}
+            {}
             {isBest100 && (
                 <div className="px-3 py-2">
                     <div className="inline-flex items-center gap-1 px-3 py-1 bg-orange-100 rounded-full">
@@ -120,7 +120,7 @@ export function Post({
                 </div>
             )}
 
-            {/* Actions */}
+            {}
             <div className="flex items-center justify-between px-3 py-2">
                 <div className="flex items-center gap-4">
                     <button onClick={handleLike} className="p-1 relative">
@@ -138,20 +138,20 @@ export function Post({
                 </div>
             </div>
 
-            {/* Likes */}
+            {}
             <div className="px-3 pb-1">
                 <span className="font-semibold">
                     {likeCount.toLocaleString()}件のいいね
                 </span>
             </div>
 
-            {/* Caption */}
+            {}
             <div className="px-3 pb-1">
                 <span className="font-semibold mr-2">{username}</span>
                 <span>{caption}</span>
             </div>
 
-            {/* Details Toggle */}
+            {}
             <div className="px-3 pb-2">
                 <button
                     onClick={handleToggleDetails}
@@ -161,7 +161,7 @@ export function Post({
                 </button>
             </div>
 
-            {/* Horizontal Scroll Details */}
+            {}
             {showDetails && (
                 <div
                     ref={scrollRef}
@@ -276,7 +276,7 @@ export function Post({
                 </div>
             )}
 
-            {/* Time */}
+            {}
             <div className="px-3 pb-2">
                 <span className="text-gray-500 text-xs">{timeAgo}</span>
             </div>

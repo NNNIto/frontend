@@ -1,11 +1,11 @@
-// src/components/ui/Stories.tsx
+
 import { useEffect, useState } from "react";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
 import { fetchStories } from "../../api/instagramApi";
 import type { StoryDto } from "../../api/types";
 
 interface StoriesProps {
-    // 親コンポーネントが StoryViewer を開くためのハンドラ
+    
     onStoryClick: (username: string, avatar: string, image: string) => void;
 }
 
@@ -23,7 +23,7 @@ export function Stories({ onStoryClick }: StoriesProps) {
                 setStories(data);
             } catch (e) {
                 console.error(e);
-                setError("ストーリーの取得に失敗しました");
+                setError("繧ｹ繝医�ｼ繝ｪ繝ｼ縺ｮ蜿門ｾ励↓螟ｱ謨励＠縺ｾ縺励◆");
             } finally {
                 setLoading(false);
             }
@@ -34,7 +34,7 @@ export function Stories({ onStoryClick }: StoriesProps) {
 
     return (
         <div className="flex gap-3 p-3 overflow-x-auto border-b border-gray-200 scrollbar-hide">
-            {loading && <span className="text-xs text-gray-500">読み込み中...</span>}
+            {loading && <span className="text-xs text-gray-500">隱ｭ縺ｿ霎ｼ縺ｿ荳ｭ...</span>}
             {error && <span className="text-xs text-red-500">{error}</span>}
             {!loading &&
                 !error &&

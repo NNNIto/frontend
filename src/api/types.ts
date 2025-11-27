@@ -1,5 +1,5 @@
-// src/api/types.ts
-// DTO definitions aligned with backend API
+
+
 
 export type SimpleUserDto = {
   id: string;
@@ -22,7 +22,7 @@ export type PostDto = {
   commentCount: number;
   likedByCurrentUser: boolean;
   createdAtText?: string;
-  // used only in Post detail expansion (optional)
+  
   detailSections?: PostDetailSectionDto[];
 };
 
@@ -40,7 +40,7 @@ export type CommentDto = {
   userName: string;
   text: string;
   createdAt: string;
-  likedByCurrentUser?: boolean; // backend does not support yet
+  likedByCurrentUser?: boolean; 
   likeCount?: number;
 };
 
@@ -78,7 +78,7 @@ export type UpdateProfileRequestDto = {
   avatarUrl: string;
 };
 
-// For Post.tsx "details"
+
 export type PostDetailSectionDto =
   | { type: "rating"; title: string; value: string }
   | { type: "tags"; title: string; tags: string[] }
